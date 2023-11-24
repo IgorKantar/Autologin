@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from os.path import (
     dirname,
+    exists,
 )
 
 from PySide6.QtCore import QDir
@@ -39,6 +40,10 @@ if __name__ == "__main__":
     check_folders([
         "icons",
     ])
+
+    if not exists(f"data"):
+        with open(f"data", "x") as f:
+            pass
 
     window = Autologin()
     window.show()
