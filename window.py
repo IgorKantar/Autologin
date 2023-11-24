@@ -9,6 +9,9 @@ from PySide6.QtWidgets import (
 )
 
 from button_list import ButtonList
+from dialogs import (
+    AddSiteDialog,
+)
 
 class MainWidget(QWidget):
 
@@ -31,3 +34,9 @@ class MainWidget(QWidget):
             self.layout.addWidget(widget)
 
         self.setLayout(self.layout)
+
+        self.addButton.clicked.connect(self.handle_add)
+
+    def handle_add(self):
+        self.dlg = AddSiteDialog(self)
+        self.dlg.exec_()
