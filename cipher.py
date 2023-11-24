@@ -5,7 +5,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-FNAME = "sites"
+FNAME = "data"
 
 class AESCipher(object):
 
