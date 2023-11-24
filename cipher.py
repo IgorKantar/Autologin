@@ -1,8 +1,11 @@
 import base64
 import hashlib
+import pickle
 from Crypto import Random
 from Crypto.Cipher import AES
 
+
+FNAME = "sites"
 
 class AESCipher(object):
 
@@ -29,3 +32,12 @@ class AESCipher(object):
     @staticmethod
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
+
+    @staticmethod
+    def save(dlist: list[dict]):
+        with open(FNAME, 'wb') as f:
+            pickle.dump(dlist, f)
+
+    def load(self) -> list[dict]:
+        with open(FNAME, 'rb') as f:
+            return pickle.load(f)
