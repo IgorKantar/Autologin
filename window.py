@@ -22,10 +22,9 @@ class MainWidget(QWidget):
         self.layout = QVBoxLayout()
         self.label  = QLabel("Sites:")
         self.cipher = AESCipher("kljuc")
+        self.data = self.cipher.load()
         self.buttonList = ButtonList(self)
         self.addButton  = QPushButton("+")
-
-        self.data = self.cipher.load()
 
         self.layout.setAlignment(Qt.AlignTop)
 
