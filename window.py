@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (
     QSplitter,
 )
 
+from cipher import AESCipher
 from button_list import ButtonList
 from dialogs import (
     AddSiteDialog,
@@ -20,8 +21,11 @@ class MainWidget(QWidget):
         self.parent = parent
         self.layout = QVBoxLayout()
         self.label  = QLabel("Sites:")
+        self.cipher = AESCipher("kljuc")
         self.buttonList = ButtonList(self)
         self.addButton  = QPushButton("+")
+
+        self.data = self.cipher.load()
 
         self.layout.setAlignment(Qt.AlignTop)
 
