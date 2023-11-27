@@ -32,11 +32,11 @@ class ButtonList(QWidget):
         self.list.setModel(self.list_model)
 
     def populate_list(self):
-        for site_dict in self.parent.data:
+        for i, site_dict in enumerate(self.parent.data):
             item = QStandardItem("")
             item.setSizeHint(QSize(10,40))
             self.list_model.appendRow(item)
-            self.list.setIndexWidget(item.index(), Button(self, site_dict))
+            self.list.setIndexWidget(item.index(), Button(self, i, site_dict))
 
     def clear(self):
         self.list_model.removeRows(0, self.list_model.rowCount())
@@ -44,9 +44,10 @@ class ButtonList(QWidget):
 class Button(QPushButton):
     """Button for editing specific website info."""
 
-    def __init__(self, parent, website: dict) -> None:
+    def __init__(self, parent, index: int, website: dict) -> None:
         super().__init__()
         self.parent = parent
+        self.index  = index
         self.set_attr(website)
 
         self.setText(self.name)
