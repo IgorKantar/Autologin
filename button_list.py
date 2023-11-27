@@ -8,7 +8,8 @@ from PySide6.QtGui import (
 from PySide6.QtWidgets import (
     QWidget,
     QListView,
-    QPushButton
+    QPushButton,
+    QVBoxLayout,
 )
 
 class ButtonList(QWidget):
@@ -16,9 +17,13 @@ class ButtonList(QWidget):
     def __init__(self, parent) -> None:
         super().__init__()
         self.parent = parent
+        self.layout = QVBoxLayout()
 
         self.init_list()
         self.populate_list()
+
+        self.layout.addWidget(self.list)
+        self.setLayout(self.layout)
 
     def init_list(self):
         # set up list
@@ -27,7 +32,14 @@ class ButtonList(QWidget):
         self.list.setModel(self.list_model)
 
     def populate_list(self):
-        pass
+        for site_dict in self.parent.data:
+            item = QStandardItem("")
+            item.setSizeHint(QSize(10,40))
+            self.list_model.appendRow(item)
+            self.list.setIndexWidget(item.index(), Button(self, site_dict))
+
+    def clear(self):
+        self.list_model.removeRows(0, self.list_model.rowCount())
 
 class Button(QPushButton):
     """Button for editing specific website info."""
@@ -35,7 +47,7 @@ class Button(QPushButton):
     def __init__(self, parent, website: dict) -> None:
         super().__init__()
         self.parent = parent
-        self.set_attr()
+        self.set_attr(website)
 
         self.setText(self.name)
 
