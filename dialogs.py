@@ -60,6 +60,15 @@ class AddSiteDialog(QDialog):
             "Are you sure you want to save these credentials?"
         )
         if button == QMessageBox.Yes:
-            # TODO: handle save
-            pass
+            self.handle_save()
 
+    def handle_save(self):
+        cipher = self.parent.cipher
+        d = {
+            "name": self.formList[0][1].text(),
+            "link": self.formList[1][1].text(),
+            "user": cipher.encrypt(self.formList[2][1].text()),
+            "pw":   cipher.encrypt(self.formList[3][1].text()),
+        }
+        self.parent.data.append(d)
+        cipher.save(self.parent.data)
