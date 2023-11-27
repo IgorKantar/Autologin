@@ -40,4 +40,7 @@ class AESCipher(object):
 
     def load(self) -> list[dict]:
         with open(FNAME, 'rb') as f:
-            return pickle.load(f)
+            try:
+                return pickle.load(f)
+            except:
+                return []
